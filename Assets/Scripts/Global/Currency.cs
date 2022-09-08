@@ -6,7 +6,7 @@ namespace Dio.TriviaGame.Global
     public class Currency : MonoBehaviour
     {
         public static Currency currencyInstance;
-        public int amountCoin;
+        public int amountCoin = 100;
         private void Awake()
         {
             if (currencyInstance == null)
@@ -23,11 +23,11 @@ namespace Dio.TriviaGame.Global
         }
         public void AddCoin()
         {
-
+            amountCoin += 20;
         }
-        public void SpendCoin()
+        public void SpendCoin(int spend)
         {
-
+            amountCoin -= spend;
         }
     }
 }

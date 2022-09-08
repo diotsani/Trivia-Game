@@ -19,5 +19,9 @@ namespace Dio.TriviaGame.Pack
         {
             SceneManager.LoadScene(name);
         }
+        void SelectPack()
+        {
+
+        }
     }
 }

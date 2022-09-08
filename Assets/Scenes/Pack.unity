@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -847,6 +847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1576439715}
   - component: {fileID: 1576439714}
+  - component: {fileID: 1576439716}
   m_Layer: 0
   m_Name: PackData
   m_TagString: Untagged
@@ -866,6 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7a48628e4101848bd69d072bfae21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amountCoin: {fileID: 146987673}
   _packButtonPrefab: {fileID: 2436207733386487540, guid: 646f33f9036c0974e8bf08b9cf549c89, type: 3}
   _packParent: {fileID: 190660486}
 --- !u!4 &1576439715
@@ -883,6 +885,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576439716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576439713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943792579b9f65241b90cd3c013e47ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &525392904792443158
 PrefabInstance:
   m_ObjectHideFlags: 0

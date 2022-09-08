@@ -11,14 +11,33 @@ namespace Dio.TriviaGame.Pack
 {
     public class PackData : MonoBehaviour
     {
+        [SerializeField] private TMP_Text amountCoin;
         [SerializeField] private Button _packButtonPrefab;
         [SerializeField] private Transform _packParent;
         private List<int> price = new List<int> {0,100,100,100};
-        private int amountPack = 4;
+        PackType[] packs;
 
         private void Awake()
         {
-            PackType[] packs = (PackType[])Enum.GetValues(typeof(PackType));
+            GetPackList();
+            InitPackList();
+            UpdateCoinText();
+        }
+        private void OnEnable()
+        {
+            EventManager.StartListening("SetCointext", UpdateCoinText);
+        }
+        private void OnDisable()
+        {
+            EventManager.StopListening("SetCointext", UpdateCoinText);
+        }
+
+        void GetPackList()
+        {
+            packs = (PackType[])Enum.GetValues(typeof(PackType));
+        }
+        void InitPackList()
+        {
             for (int i = 0; i < packs.Length; i++)
             {
                 Button packButton = Instantiate(_packButtonPrefab, _packParent);
@@ -39,6 +58,10 @@ namespace Dio.TriviaGame.Pack
             PackDatabase.databaseInstance.GetPackList();
 
             SceneManager.LoadScene("Level");
+        }
+        private void UpdateCoinText()
+        {
+            amountCoin.text = Currency.currencyInstance.amountCoin.ToString();
         }
     }
     public enum PackType
