@@ -33,7 +33,7 @@ namespace Dio.TriviaGame.Gameplay
         }
         private void OnDisable()
         {
-            EventManager.StartListening("SetDataMessage", SetQuizData);
+            EventManager.StopListening("SetDataMessage", SetQuizData);
             EventManager.StopListening("StartGameMessage", NewQuiz);
         }
         private void Awake()
@@ -72,6 +72,20 @@ namespace Dio.TriviaGame.Gameplay
 
                     answerButton.onClick.RemoveAllListeners();
                     answerButton.onClick.AddListener(() => OnClickAnswer(answerButton));
+                }
+                else
+                {
+                    for (int j = 0; j < answerButtonList.Count; j++)
+                    {
+                        Button newButton = answerButtonList[j];
+                        newButton.name = answerName[j];
+                        newButton.GetComponent<AnswerObject>()._answerText.text = answerName[j];
+                        newButton.GetComponent<AnswerObject>().answerToCheck = answerName[j];
+
+                        newButton.onClick.RemoveAllListeners();
+                        newButton.onClick.AddListener(() => OnClickAnswer(newButton));
+                    }
+                    
                 }
             }
             selectedIndexLevel++;

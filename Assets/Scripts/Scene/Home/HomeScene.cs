@@ -13,6 +13,7 @@ namespace Dio.TriviaGame.Home
 
         private void Awake()
         {
+            Screen.SetResolution(720, 1080, false);
             _playButton.onClick.RemoveAllListeners();
             _playButton.onClick.AddListener(() => StartPlay("Pack"));
         }

@@ -8,7 +8,7 @@ namespace Dio.TriviaGame.Gameplay
 {
     public class GameFlow : MonoBehaviour
     {
-        [SerializeField] private Countdown countdown;
+        [SerializeField] private GameObject countdown;
         private string nameLv;
         private int indexLv;
         private void Start()
@@ -50,7 +50,7 @@ namespace Dio.TriviaGame.Gameplay
 
         void StartGame()
         {
-            IStartGame start = countdown.gameObject.GetComponent<IStartGame>();
+            IStartGame start = countdown.GetComponent<IStartGame>();
             start?.OnStartGame();
 
             EventManager.TriggerEvent("StartGameMessage");

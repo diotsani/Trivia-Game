@@ -25,11 +25,11 @@ namespace Dio.TriviaGame.Pack
         }
         private void OnEnable()
         {
-            EventManager.StartListening("SetCointext", UpdateCoinText);
+            EventManager.StartListening("SetCoinText", UpdateCoinText);
         }
         private void OnDisable()
         {
-            EventManager.StopListening("SetCointext", UpdateCoinText);
+            EventManager.StopListening("SetCoinText", UpdateCoinText);
         }
 
         void GetPackList()
