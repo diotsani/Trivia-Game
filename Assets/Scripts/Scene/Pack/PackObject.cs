@@ -1,6 +1,5 @@
 ﻿using Dio.TriviaGame.Global;
 using Dio.TriviaGame.Message;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,43 +7,35 @@ namespace Dio.TriviaGame.Pack
 {
     public class PackObject : MonoBehaviour
     {
-        [SerializeField] private Button _lockButton;
-        
+        public PackObject pack;
+        public Button lockButton;
+
         private int free = 0;
         public int pricePack;
-        private void OnEnable()
-        {
-            EventManager.StartListening("CanBuy", RemovePrice);
-        }
-        private void OnDisable()
-        {
-            EventManager.StopListening("CanBuy", RemovePrice);
-        }
         private void Start()
-        {
-            _lockButton.onClick.RemoveAllListeners();
-            _lockButton.onClick.AddListener(OnClickLock);
-        }
-        private void Update()
         {
             if (pricePack > free)
             {
-                _lockButton.gameObject.SetActive(true);
+                lockButton.gameObject.SetActive(true);
             }
             else
-            {
-                _lockButton.gameObject.SetActive(false);
-            }
+                lockButton.gameObject.SetActive(false);
         }
 
-        void OnClickLock()
+        public void OnClickLock(Button button, int ID)
         {
-            EventManager.TriggerEvent("BuyPackMessage",new BuyPackMessage(pricePack));
-            pricePack = free;
+            EventManager.TriggerEvent("BuyPackMessage", new BuyPackMessage(pricePack,pack,ID));
+            SaveData.saveDataInstance.Save();
+            //button.gameObject.SetActive(false);
+            //button.GetComponent<PackObject>().pricePack = free;
         }
-        void RemovePrice()
+        public void RemovePrice(int price)
         {
-            //pricePack = free;
+            pricePack -= price;
+        }
+        public void RemoveLock()
+        {
+            lockButton.gameObject.SetActive(false);
         }
     }
 }

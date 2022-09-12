@@ -21,6 +21,8 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Hijau
+    isComplete: 0
+    coin: 20
   - question: Warna dari Matahari ?
     hintImage: {fileID: 21300000, guid: a9cec4851938bf04ca0edbbee7653672, type: 3}
     answerList:
@@ -29,6 +31,8 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Kuning
+    isComplete: 0
+    coin: 20
   - question: Warna dari Laut ?
     hintImage: {fileID: 21300000, guid: cec77d6141bd80248a38f296c8f9c1be, type: 3}
     answerList:
@@ -37,6 +41,8 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Biru
+    isComplete: 0
+    coin: 20
   - question: Warna dari Mawar ?
     hintImage: {fileID: 21300000, guid: 29e2575b7bd09a646a048f186f56648d, type: 3}
     answerList:
@@ -45,6 +51,8 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Merah
+    isComplete: 0
+    coin: 20
   - question: Warna dari Langit ?
     hintImage: {fileID: 21300000, guid: 0f15b882a07dc524b89e9c3597ae2baa, type: 3}
     answerList:
@@ -53,3 +61,5 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Biru
+    isComplete: 0
+    coin: 20

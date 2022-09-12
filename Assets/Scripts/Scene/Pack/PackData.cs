@@ -14,11 +14,14 @@ namespace Dio.TriviaGame.Pack
         [SerializeField] private TMP_Text amountCoin;
         [SerializeField] private Button _packButtonPrefab;
         [SerializeField] private Transform _packParent;
-        private List<int> price = new List<int> {0,100,100,100};
+        [SerializeField] private List<Button> _packButtonList;
+        public List<int> price;
         PackType[] packs;
 
         private void Awake()
         {
+            price = new List<int> { 0, 100, 100, 100 };
+            SaveData.saveDataInstance.Load();
             GetPackList();
             InitPackList();
             UpdateCoinText();
@@ -41,6 +44,7 @@ namespace Dio.TriviaGame.Pack
             for (int i = 0; i < packs.Length; i++)
             {
                 Button packButton = Instantiate(_packButtonPrefab, _packParent);
+                _packButtonList.Add(packButton);
 
                 PackType packType = packs[i];
                 packButton.name = "Level Pack " + packType.ToString();
@@ -49,6 +53,16 @@ namespace Dio.TriviaGame.Pack
 
                 packButton.onClick.RemoveAllListeners();
                 packButton.onClick.AddListener(() => OnClickPack(packType, packButton));
+            }
+            SetLockButton();
+        }
+        void SetLockButton()
+        {
+            for (int i = 0; i < _packButtonList.Count; i++)
+            {
+                int index = i;
+                PackObject pack = _packButtonList[i].GetComponent<PackObject>();
+                pack.lockButton.onClick.AddListener(() => pack.OnClickLock(pack.lockButton,index));
             }
         }
         void OnClickPack(PackType pack,Button button)

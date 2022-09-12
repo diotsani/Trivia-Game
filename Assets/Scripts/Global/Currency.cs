@@ -7,6 +7,7 @@ namespace Dio.TriviaGame.Global
     {
         public static Currency currencyInstance;
         public int amountCoin = 100;
+        public int getCoin;
         private void Awake()
         {
             if (currencyInstance == null)
@@ -17,13 +18,15 @@ namespace Dio.TriviaGame.Global
             else
                 Destroy(gameObject);
         }
-        public void GetCoin()
+        public void GetCoin(int get)
         {
-
+            getCoin = get;
+            AddCoin(getCoin);
         }
-        public void AddCoin()
+        public void AddCoin(int add)
         {
-            amountCoin += 20;
+            amountCoin += add;
+            getCoin = 0;
         }
         public void SpendCoin(int spend)
         {

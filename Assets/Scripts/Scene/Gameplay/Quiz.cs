@@ -21,6 +21,7 @@ namespace Dio.TriviaGame.Gameplay
         [SerializeField] private Image hintImage;
         [SerializeField] private string correctAnswer;
         [SerializeField] private string checkAnswer;
+        [SerializeField] private int coinLevel;
 
         [SerializeField] private List<Button> answerButtonList;
 
@@ -58,6 +59,7 @@ namespace Dio.TriviaGame.Gameplay
             questionText.text = quiz.question;
             correctAnswer = quiz.correctAnswer;
             hintImage.sprite = quiz.hintImage;
+            coinLevel = quiz.coin;
 
             List<string> answerName = quiz.answerList;
             for (int i = 0; i < quiz.answerList.Count; i++)
@@ -102,7 +104,11 @@ namespace Dio.TriviaGame.Gameplay
         {
             if (correctAnswer == checkAnswer)
             {
-                quiz.isComplete = true;
+                if(quiz.isComplete == false)
+                {
+                    quiz.isComplete = true;
+                    Currency.currencyInstance.GetCoin(coinLevel);
+                }
                 SaveData.saveDataInstance.Save();
                 EventManager.TriggerEvent("PlayerWinMessage", new PlayerWinMessage(selectedNameLevel,selectedIndexLevel));
                 EventManager.TriggerEvent("StopCountdownMessage");

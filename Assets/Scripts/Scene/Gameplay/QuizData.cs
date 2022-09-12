@@ -11,5 +11,6 @@ namespace Dio.TriviaGame.Gameplay
         public List<string> answerList;
         public string correctAnswer;
         public bool isComplete;
+        public int coin = 20;
     }
 }

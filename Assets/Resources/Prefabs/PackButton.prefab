@@ -136,7 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49e0650841c5804886a9902bad69192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lockButton: {fileID: 1825730375444470060}
+  pack: {fileID: 3708756407388493448}
+  lockButton: {fileID: 1825730375444470060}
   pricePack: 0
 --- !u!1 &2436207734088645761
 GameObject:
