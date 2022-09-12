@@ -14,22 +14,19 @@ namespace Dio.TriviaGame.Pack
         [SerializeField] private TMP_Text amountCoin;
         [SerializeField] private Button _packButtonPrefab;
         [SerializeField] private Transform _packParent;
-        private List<int> price = new List<int> {0,100,100,100};
+        [SerializeField] private List<Button> _packButtonList;
+        public List<int> price;
         PackType[] packs;
-
+        SaveData saveData = SaveData.saveDataInstance;
         private void Awake()
         {
+            price = saveData.priceData;
             GetPackList();
             InitPackList();
+        }
+        private void Update()
+        {
             UpdateCoinText();
-        }
-        private void OnEnable()
-        {
-            EventManager.StartListening("SetCoinText", UpdateCoinText);
-        }
-        private void OnDisable()
-        {
-            EventManager.StopListening("SetCoinText", UpdateCoinText);
         }
 
         void GetPackList()
@@ -41,14 +38,26 @@ namespace Dio.TriviaGame.Pack
             for (int i = 0; i < packs.Length; i++)
             {
                 Button packButton = Instantiate(_packButtonPrefab, _packParent);
+                _packButtonList.Add(packButton);
 
                 PackType packType = packs[i];
                 packButton.name = "Level Pack " + packType.ToString();
                 packButton.GetComponentInChildren<TMP_Text>().text = "Level Pack " + packType.ToString();
                 packButton.GetComponent<PackObject>().pricePack = price[i];
+                packButton.GetComponent<PackObject>().packNameID = packType.ToString();
 
                 packButton.onClick.RemoveAllListeners();
                 packButton.onClick.AddListener(() => OnClickPack(packType, packButton));
+            }
+            SetLockButton();
+        }
+        void SetLockButton()
+        {
+            for (int i = 0; i < _packButtonList.Count; i++)
+            {
+                int index = i;
+                PackObject pack = _packButtonList[i].GetComponent<PackObject>();
+                pack.lockButton.onClick.AddListener(() => pack.OnClickLock(pack.lockButton,index));
             }
         }
         void OnClickPack(PackType pack,Button button)

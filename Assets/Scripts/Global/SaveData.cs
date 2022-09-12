@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Dio.TriviaGame.Global
@@ -7,6 +8,12 @@ namespace Dio.TriviaGame.Global
     {
         public static SaveData saveDataInstance;
         private const string _prefsKey = "SaveData";
+
+        public int amountCoinData;
+        public List<int> priceData = new List<int>();
+        public List<string> packIdData = new List<string>();
+        public List<string> levelIdData = new List<string>();
+        public List<string> progressLevelData = new List<string>();
 
         private void Awake()
         {

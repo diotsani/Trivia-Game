@@ -2,21 +2,29 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Dio.TriviaGame.Global;
 
 namespace Dio.TriviaGame.Level
 {
     public class LevelObject : MonoBehaviour
     {
+        SaveData saveData = SaveData.saveDataInstance;
         public TMP_Text levelNameLabel;
         public Button selectButton;
         public Image completeImage;
+        public string levelNameID;
         public bool isCompleted;
 
-        private void Update()
+        private void Start()
         {
-            if(isCompleted)
+            saveData.Load();
+            if(saveData.levelIdData.Contains(levelNameID))
             {
-                completeImage.gameObject.SetActive(true);
+                isCompleted = true;
+                if(isCompleted)
+                {
+                    completeImage.gameObject.SetActive(true);
+                }
             }
         }
     }

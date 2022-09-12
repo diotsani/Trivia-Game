@@ -14,23 +14,33 @@ namespace Dio.TriviaGame.Level
         [SerializeField] private Transform _levelParent;
         [SerializeField] private Image imageCompleted;
         private List<LevelObject> levelList;
-        private string levelName;
+        private string levelNameData;
         private int amountLevel = 5;
-        private bool _isCompleted;
+
+        bool isCheckAll;
+        SaveData _saveData = SaveData.saveDataInstance;
 
         private void Awake()
         {
             levelList = new List<LevelObject>();
+            LoadLevelList();
             GetLevelList();
             InitLevelList();
+            isCheckAll = true;
+            
         }
         private void Update()
         {
-            //AllLevelCompleted();
+            if(isCheckAll)
+            {
+               // AllLevelCompleted();
+                isCheckAll =false;
+            }
         }
+
         public void GetLevelList()
         {
-            levelName = PackDatabase.databaseInstance.packName;
+            levelNameData = PackDatabase.databaseInstance.packName;
         }
         public void InitLevelList()
         {
@@ -40,9 +50,9 @@ namespace Dio.TriviaGame.Level
                 int lvName = i + 1;
                 Button levelButton = Instantiate(_levelButtonPrefab, _levelParent);
                 levelList.Add(levelButton.GetComponent<LevelObject>());
-                levelButton.name = "Level " + levelName + "-" + lvName;
-                levelButton.GetComponent<LevelObject>().levelNameLabel.text = "Level " + levelName + "-" + lvName;
-                levelButton.GetComponent<LevelObject>().isCompleted = PackDatabase.databaseInstance.levelPackSelected.quizData[i].isComplete;
+                levelButton.name = "Level " + levelNameData + "-" + lvName;
+                levelButton.GetComponent<LevelObject>().levelNameLabel.text = "Level " + levelNameData + "-" + lvName;
+                levelButton.GetComponent<LevelObject>().levelNameID = levelNameData + indexLv;
 
                 levelButton.onClick.RemoveAllListeners();
                 levelButton.onClick.AddListener(() => OnClickPack(levelButton, indexLv));
@@ -50,17 +60,21 @@ namespace Dio.TriviaGame.Level
         }
         void AllLevelCompleted()
         {
-            for (int i = 0; i < levelList.Count; i++)
+            foreach (LevelObject item in levelList)
             {
-                if(levelList[i].isCompleted)
+                if(item.isCompleted)
                 {
-                    imageCompleted.gameObject.SetActive(true);
+                    if(!_saveData.packIdData.Contains(levelNameData))
+                    {
+                        _saveData.packIdData.Add(levelNameData);
+                    }
+                    _saveData.Save();
                 }
             }
         }
         public void LoadLevelList()
         {
-
+            _saveData.Load();
         }
         void OnClickPack(Button button, int index)
         {

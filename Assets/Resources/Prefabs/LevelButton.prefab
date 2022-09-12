@@ -138,6 +138,7 @@ MonoBehaviour:
   levelNameLabel: {fileID: 2436207734088645767}
   selectButton: {fileID: 2436207733386487540}
   completeImage: {fileID: 8427049720892368135}
+  levelNameID: 
   isCompleted: 0
 --- !u!1 &2436207734088645761
 GameObject:
