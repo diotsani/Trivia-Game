@@ -7,12 +7,30 @@ namespace Dio.TriviaGame.Pack
 {
     public class PackObject : MonoBehaviour
     {
+        SaveData saveData;
         public PackObject pack;
         public Button lockButton;
+        [SerializeField] private Image _completeImage;
+        public string packNameID;
+        public bool isCompleted;
 
         private int free = 0;
         public int pricePack;
         private void Start()
+        {
+            SetLock();
+            saveData = SaveData.saveDataInstance;
+            if (saveData.packIdData.Contains(packNameID))
+            {
+                isCompleted = true;
+                if (isCompleted)
+                {
+                    _completeImage.gameObject.SetActive(true);
+                }
+            }
+
+        }
+        void SetLock()
         {
             if (pricePack > free)
             {
@@ -24,10 +42,7 @@ namespace Dio.TriviaGame.Pack
 
         public void OnClickLock(Button button, int ID)
         {
-            EventManager.TriggerEvent("BuyPackMessage", new BuyPackMessage(pricePack,pack,ID));
-            SaveData.saveDataInstance.Save();
-            //button.gameObject.SetActive(false);
-            //button.GetComponent<PackObject>().pricePack = free;
+            EventManager.TriggerEvent("BuyPackMessage", new BuyPackMessage(pricePack, pack, ID));
         }
         public void RemovePrice(int price)
         {

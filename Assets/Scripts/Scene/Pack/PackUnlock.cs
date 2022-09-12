@@ -11,6 +11,7 @@ namespace Dio.TriviaGame.Pack
         int getCoin;
         int getId;
         PackObject getPack;
+        SaveData saveData = SaveData.saveDataInstance;
         private void OnEnable()
         {
             EventManager.StartListening("BuyPackMessage", UnlockPack);
@@ -30,11 +31,10 @@ namespace Dio.TriviaGame.Pack
                 Currency.currencyInstance.SpendCoin(getCoin);
                 getPack.RemovePrice(getCoin);
                 getPack.RemoveLock();
-                packData.price[getId] = 0;
+                saveData.priceData[getId] = 0;
 
                 SaveData.saveDataInstance.Save();
                 EventManager.TriggerEvent("TrackUnlockMessage");
-                EventManager.TriggerEvent("SetCoinText");
             }
             else
             {

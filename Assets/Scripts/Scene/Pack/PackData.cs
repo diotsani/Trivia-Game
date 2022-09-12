@@ -17,22 +17,16 @@ namespace Dio.TriviaGame.Pack
         [SerializeField] private List<Button> _packButtonList;
         public List<int> price;
         PackType[] packs;
-
+        SaveData saveData = SaveData.saveDataInstance;
         private void Awake()
         {
-            price = new List<int> { 0, 100, 100, 100 };
-            SaveData.saveDataInstance.Load();
+            price = saveData.priceData;
             GetPackList();
             InitPackList();
+        }
+        private void Update()
+        {
             UpdateCoinText();
-        }
-        private void OnEnable()
-        {
-            EventManager.StartListening("SetCoinText", UpdateCoinText);
-        }
-        private void OnDisable()
-        {
-            EventManager.StopListening("SetCoinText", UpdateCoinText);
         }
 
         void GetPackList()
@@ -50,6 +44,7 @@ namespace Dio.TriviaGame.Pack
                 packButton.name = "Level Pack " + packType.ToString();
                 packButton.GetComponentInChildren<TMP_Text>().text = "Level Pack " + packType.ToString();
                 packButton.GetComponent<PackObject>().pricePack = price[i];
+                packButton.GetComponent<PackObject>().packNameID = packType.ToString();
 
                 packButton.onClick.RemoveAllListeners();
                 packButton.onClick.AddListener(() => OnClickPack(packType, packButton));

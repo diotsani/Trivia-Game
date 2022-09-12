@@ -10,11 +10,14 @@ namespace Dio.TriviaGame.Gameplay
 {
     public class Quiz : MonoBehaviour
     {
+        SaveData saveData = SaveData.saveDataInstance;
+        PackDatabase packDatabase = PackDatabase.databaseInstance;
         private QuizData quizData;
         [SerializeField] private QuizScriptable quizScriptable;
         [SerializeField] private List<QuizData> quizDataList;
         [SerializeField] private string selectedNameLevel;
         [SerializeField] private int selectedIndexLevel;
+        public string getNameLevelID;
         private int _amountAnswer = 4;
 
         [SerializeField] private TMP_Text questionText;
@@ -49,6 +52,8 @@ namespace Dio.TriviaGame.Gameplay
         {
             quizDataList = quizScriptable.quizData;
             quizData = quizDataList[selectedIndexLevel];
+
+            getNameLevelID = selectedNameLevel + selectedIndexLevel;
         }
         void NewQuiz()
         {
@@ -98,18 +103,22 @@ namespace Dio.TriviaGame.Gameplay
             var b = button.GetComponent<AnswerObject>();
             checkAnswer = b.answerToCheck;
 
-            OnCheckAnswer(quizData);
+            OnCheckAnswer();
         }
-        void OnCheckAnswer(QuizData quiz)
+        void OnCheckAnswer()
         {
             if (correctAnswer == checkAnswer)
             {
-                if(quiz.isComplete == false)
+                if(!saveData.levelIdData.Contains(getNameLevelID))
                 {
-                    quiz.isComplete = true;
+                    saveData.levelIdData.Add(getNameLevelID);
+                    saveData.progressLevelData.Add(getNameLevelID);
+
+                    //packDatabase.getLevelCompleted.Add(getNameLevelID);
+
                     Currency.currencyInstance.GetCoin(coinLevel);
                 }
-                SaveData.saveDataInstance.Save();
+                saveData.Save();
                 EventManager.TriggerEvent("PlayerWinMessage", new PlayerWinMessage(selectedNameLevel,selectedIndexLevel));
                 EventManager.TriggerEvent("StopCountdownMessage");
                 CheckNextLevel();
@@ -126,8 +135,8 @@ namespace Dio.TriviaGame.Gameplay
             else
             {
                 EventManager.TriggerEvent("GoToPackMessage");
-                Debug.Log("All Level Completed");
             }
+            packDatabase.GetLevelData();
         }
     }
 }
