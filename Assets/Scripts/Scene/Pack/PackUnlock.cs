@@ -31,7 +31,7 @@ namespace Dio.TriviaGame.Pack
                 Currency.currencyInstance.SpendCoin(getCoin);
                 getPack.RemovePrice(getCoin);
                 getPack.RemoveLock();
-                saveData.priceData[getId] = 0;
+                saveData.playerData.priceData[getId] = 0;
 
                 SaveData.saveDataInstance.Save();
                 EventManager.TriggerEvent("TrackUnlockMessage");

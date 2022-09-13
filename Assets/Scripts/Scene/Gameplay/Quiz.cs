@@ -15,10 +15,11 @@ namespace Dio.TriviaGame.Gameplay
         private QuizData quizData;
         [SerializeField] private QuizScriptable quizScriptable;
         [SerializeField] private List<QuizData> quizDataList;
+        [SerializeField] private string _quizID;
         [SerializeField] private string selectedNameLevel;
+        [SerializeField] private int defaultIndexLevel;
         [SerializeField] private int selectedIndexLevel;
         public string getNameLevelID;
-        private int _amountAnswer = 4;
 
         [SerializeField] private TMP_Text questionText;
         [SerializeField] private Image hintImage;
@@ -30,6 +31,8 @@ namespace Dio.TriviaGame.Gameplay
 
         [SerializeField] private Button answerPrefab;
         [SerializeField] private Transform answerParent;
+        private int amount;
+
         private void OnEnable()
         {
             EventManager.StartListening("SetDataMessage", SetQuizData);
@@ -46,14 +49,16 @@ namespace Dio.TriviaGame.Gameplay
             quizScriptable = PackDatabase.databaseInstance.levelPackSelected;
             selectedIndexLevel = PackDatabase.databaseInstance.levelIndex;
             selectedNameLevel = PackDatabase.databaseInstance.packName;
+            _quizID = quizScriptable.quizDataID;
             SetQuizData();
         }
         void SetQuizData()
         {
             quizDataList = quizScriptable.quizData;
             quizData = quizDataList[selectedIndexLevel];
-
+            
             getNameLevelID = selectedNameLevel + selectedIndexLevel;
+            quizData.QuizLevelID = getNameLevelID;
         }
         void NewQuiz()
         {
@@ -96,8 +101,8 @@ namespace Dio.TriviaGame.Gameplay
                 }
             }
             selectedIndexLevel++;
+            defaultIndexLevel = selectedIndexLevel - 1;
         }
-
         void OnClickAnswer(Button button)
         {
             var b = button.GetComponent<AnswerObject>();
@@ -109,16 +114,7 @@ namespace Dio.TriviaGame.Gameplay
         {
             if (correctAnswer == checkAnswer)
             {
-                if(!saveData.levelIdData.Contains(getNameLevelID))
-                {
-                    saveData.levelIdData.Add(getNameLevelID);
-                    saveData.progressLevelData.Add(getNameLevelID);
-
-                    //packDatabase.getLevelCompleted.Add(getNameLevelID);
-
-                    Currency.currencyInstance.GetCoin(coinLevel);
-                }
-                saveData.Save();
+                saveData.AddLevelIdData(getNameLevelID,coinLevel);
                 EventManager.TriggerEvent("PlayerWinMessage", new PlayerWinMessage(selectedNameLevel,selectedIndexLevel));
                 EventManager.TriggerEvent("StopCountdownMessage");
                 CheckNextLevel();
@@ -136,7 +132,13 @@ namespace Dio.TriviaGame.Gameplay
             {
                 EventManager.TriggerEvent("GoToPackMessage");
             }
-            packDatabase.GetLevelData();
+            GetQuizData();
+        }
+        void GetQuizData()
+        {
+            saveData.AddQuizIdData(_quizID);
+            saveData.AddPackIdData(selectedNameLevel);
+
         }
     }
 }

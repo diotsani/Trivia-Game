@@ -17,6 +17,7 @@ namespace Dio.TriviaGame.Global
         public int levelIndex;
         public string packName;
         public List<string> getLevelCompleted;
+        public bool[] lvComplete;
 
         public PackType packType;
         SaveData _saveData;
@@ -51,15 +52,16 @@ namespace Dio.TriviaGame.Global
         }
         public void GetLevelData()
         {
-            if(_saveData.progressLevelData.Count == 5)
-            {
-                if (!_saveData.packIdData.Contains(packName))
-                {
-                    _saveData.packIdData.Add(packName);
-                    _saveData.progressLevelData.Clear();
-                    _saveData.Save();
-                }
-            }
+            
+            //if(_saveData.progressLevelData.Count == 5)
+            //{
+            //    if (!_saveData.packIdData.Contains(packName))
+            //    {
+            //        _saveData.packIdData.Add(packName);
+            //        _saveData.progressLevelData.Clear();
+            //        _saveData.Save();
+            //    }
+            //}
         }
     }
 }

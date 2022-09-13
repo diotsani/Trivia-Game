@@ -16,16 +16,16 @@ namespace Dio.TriviaGame.Level
         private List<LevelObject> levelList;
         private string levelNameData;
         private int amountLevel = 5;
-
         bool isCheckAll;
         SaveData _saveData = SaveData.saveDataInstance;
 
         private void Awake()
         {
             levelList = new List<LevelObject>();
-            LoadLevelList();
+            
             GetLevelList();
             InitLevelList();
+            
             isCheckAll = true;
             
         }
@@ -33,7 +33,6 @@ namespace Dio.TriviaGame.Level
         {
             if(isCheckAll)
             {
-               // AllLevelCompleted();
                 isCheckAll =false;
             }
         }
@@ -57,24 +56,7 @@ namespace Dio.TriviaGame.Level
                 levelButton.onClick.RemoveAllListeners();
                 levelButton.onClick.AddListener(() => OnClickPack(levelButton, indexLv));
             }
-        }
-        void AllLevelCompleted()
-        {
-            foreach (LevelObject item in levelList)
-            {
-                if(item.isCompleted)
-                {
-                    if(!_saveData.packIdData.Contains(levelNameData))
-                    {
-                        _saveData.packIdData.Add(levelNameData);
-                    }
-                    _saveData.Save();
-                }
-            }
-        }
-        public void LoadLevelList()
-        {
-            _saveData.Load();
+            
         }
         void OnClickPack(Button button, int index)
         {
