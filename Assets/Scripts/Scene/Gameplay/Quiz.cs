@@ -6,29 +6,26 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 namespace Dio.TriviaGame.Gameplay
 {
     public class Quiz : MonoBehaviour
     {
-        private SaveData saveData = SaveData.saveDataInstance;
-        private PackDatabase packDatabase = PackDatabase.databaseInstance;
-        private QuizData quizData;
-        [SerializeField] private QuizScriptable quizScriptable;
-        [SerializeField] private List<QuizData> quizDataList;
-        private List<string> listLevelId = new List<string>();
-        //[SerializeField] private string _quizID;
-        [SerializeField] private string selectedNameLevel;
-        [SerializeField] private int selectedIndexLevel;
+        private SaveData _saveData = SaveData.saveDataInstance;
+        private PackDatabase _packDatabase = PackDatabase.databaseInstance;
+        private QuizData _quizData;
+        private QuizScriptable _quizScriptable;
+        private List<QuizData> _quizDataList;
+        private string _namePack;
+        private int _indexLevel;
 
-        [SerializeField] private TMP_Text questionText;
-        [SerializeField] private Image hintImage;
-        [SerializeField] private string correctAnswer;
-        [SerializeField] private string checkAnswer;
-        [SerializeField] private int coinLevel;
+        [SerializeField] private TMP_Text _questionText;
+        [SerializeField] private Image _hintImage;
+        private string _correctAnswer;
+        private string _checkAnswer;
+        private int _coinLevel;
 
-        [SerializeField] private List<Button> answerButtonList;
+        private List<Button> answerButtonList;
 
         [SerializeField] private Button answerPrefab;
         [SerializeField] private Transform answerParent;
@@ -46,42 +43,35 @@ namespace Dio.TriviaGame.Gameplay
         private void Awake()
         {
             answerButtonList = new List<Button>();
-            quizScriptable = PackDatabase.databaseInstance.levelPackSelected;
-            selectedNameLevel = PackDatabase.databaseInstance.packName;
-            selectedIndexLevel = PackDatabase.databaseInstance.levelIndex;
-            //_quizID = quizScriptable.quizDataID;
+            _quizDataList = new List<QuizData>();
+
+            _quizScriptable = PackDatabase.databaseInstance.levelPackSelected;
+            _namePack = PackDatabase.databaseInstance.packName;
+            _indexLevel = PackDatabase.databaseInstance.indexLevel;
+
             SetQuizData();
-            SetLevelId();
         }
         void SetQuizData()
         {
-            quizDataList = quizScriptable.quizData;
-            quizData = quizDataList[selectedIndexLevel]; 
-        }
-        void SetLevelId()
-        {
-            for (int i = 0; i < quizDataList.Count; i++)
+            _quizDataList = _quizScriptable.quizData;
+            _quizData = _quizDataList[_indexLevel];
+
+            for (int i = 0; i < _quizDataList.Count; i++)
             {
-                var q = quizDataList[i].QuizLevelID = selectedNameLevel + i;
-                listLevelId.Add(q);
+                _quizDataList[i].QuizLevelID = _namePack + i;
             }
-            //for (int i = 0; i < quizDataList.Count; i++)
-            //{
-            //    var q = quizDataList[i].QuizLevelID;
-            //    listLevelId.Add(q);
-            //}
         }
         void InitQuiz()
         {
-            questionText.text = quizData.question;
-            correctAnswer = quizData.correctAnswer;
-            hintImage.sprite = quizData.hintImage;
-            coinLevel = quizData.coin;
+            _questionText.text = _quizData.question;
+            _correctAnswer = _quizData.correctAnswer;
+            _hintImage.sprite = _quizData.hintImage;
+            _coinLevel = _quizData.coin;
 
-            List<string> answerName = quizData.answerList;
-            for (int i = 0; i < quizData.answerList.Count; i++)
+            List<string> answerName = _quizData.answerList;
+            for (int i = 0; i < _quizData.answerList.Count; i++)
             {
-                if (answerButtonList.Count < quizData.answerList.Count)
+                if (answerButtonList.Count < _quizData.answerList.Count)
                 {
                     Button answerButton = Instantiate(answerPrefab, answerParent);
                     answerButtonList.Add(answerButton);
@@ -107,22 +97,25 @@ namespace Dio.TriviaGame.Gameplay
                     
                 }
             }
-            selectedIndexLevel++;
+            _indexLevel++;
         }
         void OnClickAnswer(Button button)
         {
-            var b = button.GetComponent<AnswerObject>();
-            checkAnswer = b.answerToCheck;
+            AnswerObject obj = button.GetComponent<AnswerObject>();
+            _checkAnswer = obj.answerToCheck;
 
             OnCheckAnswer();
         }
         void OnCheckAnswer()
         {
-            if (correctAnswer == checkAnswer)
+            if (_correctAnswer == _checkAnswer)
             {
-                //saveData.AddLevelIdData(getNameLevelID,coinLevel);
-                saveData.AddLevelIdData(quizDataList[selectedIndexLevel-1].QuizLevelID, coinLevel);
-                EventManager.TriggerEvent("PlayerWinMessage", new PlayerWinMessage(selectedNameLevel,selectedIndexLevel));
+                string data = _quizDataList[_indexLevel - 1].QuizLevelID;
+
+                _saveData.AddLevelIdData(data, _coinLevel);
+                _saveData.AddProgressLevelData(data);
+
+                EventManager.TriggerEvent("PlayerWinMessage", new PlayerWinMessage(_namePack,_indexLevel));
                 EventManager.TriggerEvent("StopCountdownMessage");
                 CheckNextLevel();
             }
@@ -131,8 +124,9 @@ namespace Dio.TriviaGame.Gameplay
         }
         void CheckNextLevel()
         {
-            GetQuizData();
-            if (selectedIndexLevel < quizDataList.Count)
+            _saveData.CheckProgressLevel(_quizDataList,_namePack);
+
+            if (_indexLevel < _quizDataList.Count)
             {
                 EventManager.TriggerEvent("NextLevelMessage");
             }
@@ -140,16 +134,6 @@ namespace Dio.TriviaGame.Gameplay
             {
                 EventManager.TriggerEvent("GoToPackMessage");
             }
-            
-        }
-        void GetQuizData()
-        {
-            //saveData.AddQuizIdData(_quizID);'
-            //saveData.AddQuizIdData(quizScriptable.quizDataID);
-            //saveData.AddPackIdData(selectedNameLevel);
-            
-            
-
         }
     }
 }

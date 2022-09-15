@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Dio.TriviaGame.Gameplay;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Dio.TriviaGame.Global
@@ -37,7 +39,7 @@ namespace Dio.TriviaGame.Global
 
             string json = JsonUtility.ToJson(playerData);
             PlayerPrefs.SetString(_prefsKey, json);
-            Debug.Log("Save "+json);
+            //Debug.Log("Save "+json);
         }
         public void Load()
         {
@@ -52,11 +54,30 @@ namespace Dio.TriviaGame.Global
             {
                 string json = PlayerPrefs.GetString(_prefsKey);
                 playerData = JsonUtility.FromJson<PlayerData>(json);
-                Debug.Log("Load " + json);
+                //Debug.Log("Load " + json);
             }
             else
                 Save();
             
+        }
+        public void AddProgressLevelData(string GetName)
+        {
+            if (!playerData.progressLevelData.Contains(GetName))
+            {
+                playerData.progressLevelData.Add(GetName);
+                Save();
+            }
+        }
+        public void CheckProgressLevel(List<QuizData> GetQuiz, string GetName)
+        {
+            //List<int> ints = new List<int> { 0, 1, 2, 3, 4 };
+            
+            if (playerData.progressLevelData.Count == GetQuiz.Count)
+            {
+                AddPackIdData(GetName);
+                playerData.progressLevelData.Clear();
+                Save();
+            }
         }
         public void AddLevelIdData(string GetName,int GetCoin)
         {
@@ -83,6 +104,20 @@ namespace Dio.TriviaGame.Global
                 playerData.quizIdData.Add(GetName);
                 Save();
             }
+
+            
+        }
+        public bool tes()
+        {
+            List<string> strings = new List<string> { "A0,A1,A2,A3,A4" };
+            foreach (var item in strings)
+            {
+                if (!playerData.progressLevelData.Contains(item))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
     [System.Serializable]

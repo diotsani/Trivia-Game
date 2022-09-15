@@ -60,7 +60,7 @@ namespace Dio.TriviaGame.Level
         }
         void OnClickPack(Button button, int index)
         {
-            PackDatabase.databaseInstance.levelIndex = index;
+            PackDatabase.databaseInstance.indexLevel = index;
             EventManager.TriggerEvent("SelectLevelMessage");
         }
     }

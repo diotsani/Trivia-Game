@@ -762,15 +762,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3deabb5b2ded8d4f86bb45272a83135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizScriptable: {fileID: 11400000, guid: 5d4a518d19cee6643b4a2aced942737b, type: 2}
-  quizDataList: []
-  selectedNameLevel: 
-  selectedIndexLevel: 0
-  questionText: {fileID: 2022331740}
-  hintImage: {fileID: 1509695778}
-  correctAnswer: 
-  checkAnswer: 
-  answerButtonList: []
+  _questionText: {fileID: 2022331740}
+  _hintImage: {fileID: 1509695778}
   answerPrefab: {fileID: 1183295818132004853, guid: da2faf3f0fb865f47911a3a1df6ddaa4, type: 3}
   answerParent: {fileID: 1002825968}
 --- !u!4 &1089325534
