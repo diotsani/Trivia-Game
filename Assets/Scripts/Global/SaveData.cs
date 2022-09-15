@@ -90,11 +90,10 @@ namespace Dio.TriviaGame.Global
     {
         public int amountCoinData;
         public List<int> priceData;
+        public List<string> quizIdData;
         public List<string> packIdData;
         public List<string> levelIdData;
         public List<string> progressLevelData;
-        public List<string> quizIdData;
-
         public PlayerData()
         {
             amountCoinData = 0;

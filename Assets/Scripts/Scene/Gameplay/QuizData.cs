@@ -12,5 +12,9 @@ namespace Dio.TriviaGame.Gameplay
         public List<string> answerList;
         public string correctAnswer;
         public int coin = 20;
+        public QuizData()
+        {
+            QuizLevelID = null;
+        }
     }
 }
