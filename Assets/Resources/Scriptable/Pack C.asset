@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b3be81f1f4adf4c970571875bff494, type: 3}
   m_Name: Pack C
   m_EditorClassIdentifier: 
+  quizDataID: QuizC
   quizData:
-  - question: Warna dari Daun ?
+  - QuizLevelID: 
+    question: Warna dari Daun ?
     hintImage: {fileID: 21300000, guid: 3c00d05608d412443bc7035f1e7287a4, type: 3}
     answerList:
     - Merah
@@ -21,9 +23,9 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Hijau
-    isComplete: 0
     coin: 20
-  - question: Warna dari Matahari ?
+  - QuizLevelID: 
+    question: Warna dari Matahari ?
     hintImage: {fileID: 21300000, guid: a9cec4851938bf04ca0edbbee7653672, type: 3}
     answerList:
     - Merah
@@ -31,9 +33,9 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Kuning
-    isComplete: 0
     coin: 20
-  - question: Warna dari Laut ?
+  - QuizLevelID: 
+    question: Warna dari Laut ?
     hintImage: {fileID: 21300000, guid: cec77d6141bd80248a38f296c8f9c1be, type: 3}
     answerList:
     - Merah
@@ -41,9 +43,9 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Biru
-    isComplete: 0
     coin: 20
-  - question: Warna dari Mawar ?
+  - QuizLevelID: 
+    question: Warna dari Mawar ?
     hintImage: {fileID: 21300000, guid: 29e2575b7bd09a646a048f186f56648d, type: 3}
     answerList:
     - Merah
@@ -51,9 +53,9 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Merah
-    isComplete: 0
     coin: 20
-  - question: Warna dari Langit ?
+  - QuizLevelID: 
+    question: Warna dari Langit ?
     hintImage: {fileID: 21300000, guid: 0f15b882a07dc524b89e9c3597ae2baa, type: 3}
     answerList:
     - Merah
@@ -61,5 +63,4 @@ MonoBehaviour:
     - Hijau
     - Kuning
     correctAnswer: Biru
-    isComplete: 0
     coin: 20

@@ -1,3 +1,4 @@
+using Dio.TriviaGame.Global;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +12,12 @@ namespace Dio.TriviaGame.Home
     {
         [SerializeField] Button _playButton;
 
-        private void Awake()
+        private void Start()
         {
             Screen.SetResolution(720, 1080, false);
             _playButton.onClick.RemoveAllListeners();
             _playButton.onClick.AddListener(() => StartPlay("Pack"));
         }
-
         void StartPlay(string name)
         {
             SceneManager.LoadScene(name);

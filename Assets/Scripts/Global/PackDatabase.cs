@@ -10,13 +10,11 @@ namespace Dio.TriviaGame.Global
 {
     public class PackDatabase : MonoBehaviour
     {
-        
-
         public static PackDatabase databaseInstance;
+
         public QuizScriptable levelPackSelected;
-        public int levelIndex;
+        public int indexLevel;
         public string packName;
-        public List<string> getLevelCompleted;
 
         public PackType packType;
         SaveData _saveData;
@@ -51,15 +49,7 @@ namespace Dio.TriviaGame.Global
         }
         public void GetLevelData()
         {
-            if(_saveData.progressLevelData.Count == 5)
-            {
-                if (!_saveData.packIdData.Contains(packName))
-                {
-                    _saveData.packIdData.Add(packName);
-                    _saveData.progressLevelData.Clear();
-                    _saveData.Save();
-                }
-            }
+
         }
     }
 }
