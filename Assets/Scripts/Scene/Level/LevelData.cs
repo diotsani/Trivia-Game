@@ -10,36 +10,27 @@ namespace Dio.TriviaGame.Level
 {
     public class LevelData : MonoBehaviour
     {
+        SaveData _saveData = SaveData.saveDataInstance;
+        PackDatabase _packDatabase = PackDatabase.databaseInstance;
+
         [SerializeField] private Button _levelButtonPrefab;
         [SerializeField] private Transform _levelParent;
-        [SerializeField] private Image imageCompleted;
+        [SerializeField] private int amountLevel;
         private List<LevelObject> levelList;
         private string levelNameData;
-        private int amountLevel = 5;
-        bool isCheckAll;
-        SaveData _saveData = SaveData.saveDataInstance;
-
         private void Awake()
         {
             levelList = new List<LevelObject>();
-            
+
+            amountLevel = _packDatabase.levelPackSelected.quizData.Count;
+
             GetLevelList();
             InitLevelList();
-            
-            isCheckAll = true;
-            
-        }
-        private void Update()
-        {
-            if(isCheckAll)
-            {
-                isCheckAll =false;
-            }
         }
 
         public void GetLevelList()
         {
-            levelNameData = PackDatabase.databaseInstance.packName;
+            levelNameData = _packDatabase.packName;
         }
         public void InitLevelList()
         {
