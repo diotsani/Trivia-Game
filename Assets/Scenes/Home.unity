@@ -227,8 +227,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 77c87da7c324ac848b35bd4356e641c4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -410,10 +410,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPackSelected: {fileID: 0}
-  levelIndex: 0
+  indexLevel: 0
   packName: 
-  getLevelCompleted: []
-  lvComplete: 
   packType: 0
 --- !u!4 &497245819
 Transform:
@@ -906,7 +904,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 300}
+  m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509695778
 MonoBehaviour:
@@ -921,16 +919,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: ed038e6849ab22d46ae3b0f3b7c88988, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -978,10 +976,10 @@ MonoBehaviour:
   playerData:
     amountCoinData: 0
     priceData: 00000000640000006400000064000000
+    quizIdData: []
     packIdData: []
     levelIdData: []
     progressLevelData: []
-    quizIdData: []
 --- !u!4 &1672931463
 Transform:
   m_ObjectHideFlags: 0
