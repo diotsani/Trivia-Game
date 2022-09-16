@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Dio.TriviaGame.Global
 {
@@ -97,13 +99,20 @@ namespace Dio.TriviaGame.Global
                 Save();
             }
         }
-        public void AddQuizIdData(string GetName)
+        public void AddQuizIdData()
         {
-            if (!playerData.levelIdData.Contains(GetName))
+            List<string> strings = new List<string> { "A0,A1,A2,A3,A4" };
+            foreach (var item in strings)
             {
-                playerData.quizIdData.Add(GetName);
-                Save();
+                var n = playerData.levelIdData.FirstOrDefault(x => x == item);
+                Debug.Log(n);
             }
+            
+            //if (!playerData.levelIdData.Contains(GetName))
+            //{
+            //    playerData.quizIdData.Add(GetName);
+            //    Save();
+            //}
 
             
         }
@@ -112,6 +121,7 @@ namespace Dio.TriviaGame.Global
             List<string> strings = new List<string> { "A0,A1,A2,A3,A4" };
             foreach (var item in strings)
             {
+                
                 if (!playerData.progressLevelData.Contains(item))
                 {
                     return false;
