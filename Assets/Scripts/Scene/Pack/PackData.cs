@@ -20,7 +20,7 @@ namespace Dio.TriviaGame.Pack
         SaveData saveData = SaveData.saveDataInstance;
         private void Awake()
         {
-            price = saveData.priceData;
+            price = saveData.playerData.priceData;
             GetPackList();
             InitPackList();
         }

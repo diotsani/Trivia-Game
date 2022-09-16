@@ -20,7 +20,7 @@ namespace Dio.TriviaGame.Pack
         {
             SetLock();
             saveData = SaveData.saveDataInstance;
-            if (saveData.packIdData.Contains(packNameID))
+            if (saveData.playerData.packIdData.Contains(packNameID))
             {
                 isCompleted = true;
                 if (isCompleted)

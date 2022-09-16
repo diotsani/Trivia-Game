@@ -22,8 +22,7 @@ namespace Dio.TriviaGame.Global
         }
         private void Start()
         {
-            saveData.Load();
-            amountCoin = saveData.amountCoinData;
+            amountCoin = saveData.playerData.amountCoinData;
         }
         public void GetCoin(int get)
         {
@@ -33,7 +32,7 @@ namespace Dio.TriviaGame.Global
         public void AddCoin(int add)
         {
             amountCoin += add;
-            saveData.amountCoinData = amountCoin;
+            saveData.playerData.amountCoinData = amountCoin;
             getCoin = 0;
 
             saveData.Save();
