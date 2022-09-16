@@ -10,37 +10,27 @@ namespace Dio.TriviaGame.Level
 {
     public class LevelData : MonoBehaviour
     {
+        SaveData _saveData = SaveData.saveDataInstance;
+        PackDatabase _packDatabase = PackDatabase.databaseInstance;
+
         [SerializeField] private Button _levelButtonPrefab;
         [SerializeField] private Transform _levelParent;
-        [SerializeField] private Image imageCompleted;
+        [SerializeField] private int amountLevel;
         private List<LevelObject> levelList;
         private string levelNameData;
-        private int amountLevel = 5;
-
-        bool isCheckAll;
-        SaveData _saveData = SaveData.saveDataInstance;
-
         private void Awake()
         {
             levelList = new List<LevelObject>();
-            LoadLevelList();
+
+            amountLevel = _packDatabase.levelPackSelected.quizData.Count;
+
             GetLevelList();
             InitLevelList();
-            isCheckAll = true;
-            
-        }
-        private void Update()
-        {
-            if(isCheckAll)
-            {
-               // AllLevelCompleted();
-                isCheckAll =false;
-            }
         }
 
         public void GetLevelList()
         {
-            levelNameData = PackDatabase.databaseInstance.packName;
+            levelNameData = _packDatabase.packName;
         }
         public void InitLevelList()
         {
@@ -57,28 +47,11 @@ namespace Dio.TriviaGame.Level
                 levelButton.onClick.RemoveAllListeners();
                 levelButton.onClick.AddListener(() => OnClickPack(levelButton, indexLv));
             }
-        }
-        void AllLevelCompleted()
-        {
-            foreach (LevelObject item in levelList)
-            {
-                if(item.isCompleted)
-                {
-                    if(!_saveData.packIdData.Contains(levelNameData))
-                    {
-                        _saveData.packIdData.Add(levelNameData);
-                    }
-                    _saveData.Save();
-                }
-            }
-        }
-        public void LoadLevelList()
-        {
-            _saveData.Load();
+            
         }
         void OnClickPack(Button button, int index)
         {
-            PackDatabase.databaseInstance.levelIndex = index;
+            PackDatabase.databaseInstance.indexLevel = index;
             EventManager.TriggerEvent("SelectLevelMessage");
         }
     }

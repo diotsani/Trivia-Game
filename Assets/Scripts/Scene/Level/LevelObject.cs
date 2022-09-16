@@ -17,8 +17,7 @@ namespace Dio.TriviaGame.Level
 
         private void Start()
         {
-            saveData.Load();
-            if(saveData.levelIdData.Contains(levelNameID))
+            if(saveData.playerData.levelIdData.Contains(levelNameID))
             {
                 isCompleted = true;
                 if(isCompleted)

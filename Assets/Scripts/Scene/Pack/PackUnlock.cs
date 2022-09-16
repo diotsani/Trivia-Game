@@ -12,6 +12,15 @@ namespace Dio.TriviaGame.Pack
         int getId;
         PackObject getPack;
         SaveData saveData = SaveData.saveDataInstance;
+
+        [SerializeField] private PackScene _packScene;
+        private string _enoughCoin;
+        private string _notEnoughCoin;
+        private void Start()
+        {
+            _enoughCoin = "Succes Buy Pack";
+            _notEnoughCoin = "Not Enough Coin";
+        }
         private void OnEnable()
         {
             EventManager.StartListening("BuyPackMessage", UnlockPack);
@@ -31,14 +40,16 @@ namespace Dio.TriviaGame.Pack
                 Currency.currencyInstance.SpendCoin(getCoin);
                 getPack.RemovePrice(getCoin);
                 getPack.RemoveLock();
-                saveData.priceData[getId] = 0;
+                saveData.playerData.priceData[getId] = 0;
+
+                StartCoroutine(_packScene.ShowPopUp(_enoughCoin));
 
                 SaveData.saveDataInstance.Save();
                 EventManager.TriggerEvent("TrackUnlockMessage");
             }
             else
             {
-                // Display not enough coin
+                StartCoroutine(_packScene.ShowPopUp(_notEnoughCoin));
             }
         }
     }
